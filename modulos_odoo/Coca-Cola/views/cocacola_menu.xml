@@ -1,0 +1,16 @@
+<odoo>
+        <menuitem id="menu_cocacola_root" 
+                name="Coca-Cola Inventario"/>
+
+        <menuitem id="menu_cocacola_productos"
+                name="Productos"
+                parent="menu_cocacola_root"
+                action="action_cocacola_productos"
+                sequence="10"/>
+
+        <menuitem id="menu_cocacola_linea"
+                name="Líneas de producto"
+                parent="menu_cocacola_root"
+                action="action_cocacola_linea"
+                sequence="20"/>
+</odoo>

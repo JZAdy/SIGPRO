@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vista de lista -->
+    <record id="view_cocacola_pedido_list" model="ir.ui.view">
+        <field name="name">cocacola.pedido.list</field>
+        <field name="model">cocacola.pedido</field>
+        <field name="arch" type="xml">
+            <list string="Pedidos" decoration-success="estado == 'entregado'" decoration-muted="estado == 'cancelado'">
+                <field name="cliente"/>
+                <field name="producto_id"/>
+                <field name="cantidad"/>
+                <field name="precio_unitario"/>
+                <field name="total"/>
+                <field name="fecha_pedido"/>
+                <field name="metodo_pago"/>
+                <field name="estado"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista de formulario -->
+    <record id="view_cocacola_pedido_form" model="ir.ui.view">
+        <field name="name">cocacola.pedido.form</field>
+        <field name="model">cocacola.pedido</field>
+        <field name="arch" type="xml">
+            <form string="Pedido">
+                <header>
+                    <button name="action_confirmar" string="Confirmar" type="object"
+                            class="oe_highlight" invisible="estado != 'borrador'"/>
+                    <button name="action_entregar" string="Marcar como entregado" type="object"
+                            invisible="estado != 'confirmado'"/>
+                    <button name="action_cancelar" string="Cancelar" type="object"
+                            invisible="estado in ('entregado', 'cancelado')"/>
+                    <field name="estado" widget="statusbar" statusbar_visible="borrador,confirmado,entregado"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="cliente"/>
+                            <field name="producto_id"/>
+                            <field name="cantidad"/>
+                        </group>
+                        <group>
+                            <field name="precio_unitario"/>
+                            <field name="total"/>
+                            <field name="fecha_pedido"/>
+                            <field name="metodo_pago"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_cocacola_pedido" model="ir.actions.act_window">
+        <field name="name">Pedidos</field>
+        <field name="res_model">cocacola.pedido</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menú -->
+    <menuitem id="menu_cocacola_pedido"
+            name="Pedidos"
+            parent="Coca-Cola.menu_cocacola_root"
+            action="action_cocacola_pedido"
+            sequence="30"/>
+
+</odoo>
